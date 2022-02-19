@@ -12,8 +12,8 @@
     <button class="btn btn-outline-secondary m-2" onclick="copyText()">Copy</button>
   </div>
   <div class="d-flex">
-    <textarea class="form-control" id="input" rows="30" placeholder="PDF text" oninput="convert()"></textarea>
-    <textarea class="form-control" id="output" rows="30" readonly></textarea>
+    <textarea class="form-control" id="input" rows="30" placeholder="PDF text" onfocus="this.select()" oninput="convert()"></textarea>
+    <textarea class="form-control" id="output" rows="30" readonly onfocus="this.select()"></textarea>
   </div>
 </div>
 
