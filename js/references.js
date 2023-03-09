@@ -29,28 +29,35 @@ function generateText(input) {
   let docNameLine = docNameLines.find(s => s.startsWith("\""));
   let docName = docNameLine.substring(1, docNameLine.length - 1);
 
-  let result = dateStr + " " + docName + ": " + docTypeOut +
+  let resultDocName = docName + ": " + docTypeOut +
     " от " + dd + " " + month + " " + yyyy +
     " №" + hardSpace + docNum;
 
   let editedLine = docNameLines.find(s => s.startsWith("(ред. от "));
   if (editedLine) {
     let edited = editedLine.substring(1, editedLine.length - 1);
-    result += " [в " + edited + "]";
+    resultDocName += " [в " + edited + "]";
   }
-  result += getPublication(lines) + ".\n";
-  return result;
+  return dateStr + "\n" +
+    resultDocName + getPublication(lines, false) + "\n" +
+    resultDocName + getPublication(lines, true) + "\n";
 }
 
-function getPublication(lines) {
+function getPublication(lines, isNote) {
   let line = lines.find(s => s.startsWith("\"Собрание законодательства РФ\""));
   let pubParts = line.split(", ");
   let pubYyyy = pubParts[1].substring(6, 10);
   let pubNum = pubParts[2].replace("N ", "");
   let pubArticle = pubParts[3].replace("ст. ", "").replace(",", "").replace(".", "");
-  return " // Собрание законодательства Российской Федерации. " + "– " + pubYyyy +
-    ". – №" + hardSpace + pubNum +
-    ". – Ст. " + pubArticle;
+  if (!isNote) {
+    return " // Собрание законодательства Российской Федерации. - " + pubYyyy +
+      ". – №" + hardSpace + pubNum +
+      ". – Ст. " + pubArticle + ".";
+  } else {
+    return " // Собр. законодательства Рос. Федерации. " + pubYyyy +
+      ". №" + hardSpace + pubNum +
+      ". Ст. " + pubArticle + ".";
+  }
 }
 
 function copyText() {
