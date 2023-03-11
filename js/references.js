@@ -13,7 +13,9 @@ function generateText(input) {
   let docNameLines = lines.slice(docNameIndex + 1);
   let docTypes = {
     "Федеральный закон": "федер. закон",
-    "Постановление Правительства РФ": "постановление Правительства Российской Федерации"
+    "Постановление Правительства РФ": "постановление Правительства Российской Федерации",
+    "Распоряжение Правительства РФ": "распоряжение Правительства Российской Федерации",
+    "Указ Президента РФ": "указ Президента Российской Федерации"
   };
   let docTypeLine = docNameLines[0];
   let docTypeIn = docTypeLine.split(" от ")[0];
@@ -27,6 +29,9 @@ function generateText(input) {
   let docNum = docTypeLine.split(" N ")[1];
 
   let docNameLine = docNameLines.find(s => s.startsWith("\""));
+  if (!docNameLine) {
+    docNameLine = docNameLines.find(s => s.startsWith("<"));
+  }
   let docName = docNameLine.substring(1, docNameLine.length - 1);
 
   let resultDocName = docName + ": " + docTypeOut +
