@@ -19,7 +19,7 @@ function generateText(input) {
   };
   let docTypeLine = docNameLines[0];
   let docTypeIn = docTypeLine.split(" от ")[0];
-  let docTypeOut = docTypes[docTypeIn];
+  let docTypeOut = docTypes[docTypeIn] || (docTypeIn.substring(0, 1).toLowerCase() + docTypeIn.substring(1));
   let dateStr = docTypeLine.substring((docTypeIn + " от ").length, (docTypeIn + " от 01.01.2000").length);
   let dd = dateStr.substring(0, 2);
   let months = {"01": "января", "02": "февраля", "03": "марта", "04": "апреля", "05": "мая", "06": "июня",
@@ -50,18 +50,22 @@ function generateText(input) {
 
 function getPublication(lines, isNote) {
   let line = lines.find(s => s.startsWith("\"Собрание законодательства РФ\""));
-  let pubParts = line.split(", ");
-  let pubYyyy = pubParts[1].substring(6, 10);
-  let pubNum = pubParts[2].replace("N ", "");
-  let pubArticle = pubParts[3].replace("ст. ", "").replace(",", "").replace(".", "");
-  if (!isNote) {
-    return " // Собрание законодательства Российской Федерации. - " + pubYyyy +
-      ". – №" + hardSpace + pubNum +
-      ". – Ст. " + pubArticle + ".";
+  if (line) {
+    let pubParts = line.split(", ");
+    let pubYyyy = pubParts[1].substring(6, 10);
+    let pubNum = pubParts[2].replace("N ", "");
+    let pubArticle = pubParts[3].replace("ст. ", "").replace(",", "").replace(".", "");
+    if (!isNote) {
+      return " // Собрание законодательства Российской Федерации. - " + pubYyyy +
+        ". – №" + hardSpace + pubNum +
+        ". – Ст. " + pubArticle + ".";
+    } else {
+      return " // Собр. законодательства Рос. Федерации. " + pubYyyy +
+        ". №" + hardSpace + pubNum +
+        ". Ст. " + pubArticle + ".";
+    }
   } else {
-    return " // Собр. законодательства Рос. Федерации. " + pubYyyy +
-      ". №" + hardSpace + pubNum +
-      ". Ст. " + pubArticle + ".";
+    return " [Электронный ресурс]. – Электрон. дан. – Доступ из справ.-правовой системы «Консультант Плюс».";
   }
 }
 
