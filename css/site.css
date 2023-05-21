@@ -1,0 +1,54 @@
+/* Placeholder */
+
+::-webkit-input-placeholder {
+   font-style: italic;
+   color: #b5b5b5 !important;
+}
+:-moz-placeholder {
+   font-style: italic;
+   color: #b5b5b5 !important;
+}
+::-moz-placeholder {
+   font-style: italic;
+   color: #b5b5b5 !important;
+}
+:-ms-input-placeholder {
+   font-style: italic;
+   color: #b5b5b5 !important;
+}
+
+/* Tooltip */
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip-container .tooltiptext {
+  visibility: hidden;
+  width: 500px;
+  background-color: #FFFFFF;
+  color: #000;
+  text-align: left;
+  font-size: smaller;
+  padding: 5px 5px;
+  border-radius: 6px;
+  border: 1px solid #cdcdcd;
+  box-shadow: 4px 4px 5px 0px #3e3e3e;
+
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 10%;
+  margin-top: 10px;
+  margin-left: 0px;
+}
+
+.tooltip-container:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip-space-holder {
+  height: 200px;
+}
